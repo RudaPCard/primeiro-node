@@ -68,7 +68,7 @@ app.delete('/order/:id', checkUserId, ( req, res) => {
     users.splice(index,1)
 
     
-    return res.status(204).json({ message: "Removido" })
+    return res.status(204).json({ message: "removido" })
       
 })
 
