@@ -31,48 +31,50 @@ const checkUserId = (req, res, next) => {
     next()
 }
 
-app.get('/users', ( req, res) => {
+app.get('/order', ( req, res) => {
     return res.json(users)
       
 })
 
-app.post('/users', (req, res) => {
-    const { name, age } = req.body  
+app.post('/order', (req, res) => {
+    const { order, clientName, price } = req.body  
 
+
+    console.log()
     
-   const user = { id:uuid.v4(), name, age }
+   const orders = { id:uuid.v4(), order, clientName, price, status: "em preparação" }
+   
+    users.push(orders)
 
-    users.push(user)
-
-    return res.status(201).json(user)
+    return res.status(201).json(orders)
       
 })
 
-app.put('/users/:id', checkUserId, (req, res) => {
+app.put('/order/:id', checkUserId, (req, res) => {
 
-const { name, age} = req.body
+const { order, clientName, price} = req.body
 const index = req.userIndex
 const id = req.userId
 
-const updatedUser = { id, name, age }
-users[index] = updatedUser
-    return res.json(updatedUser)
+const updatedOrder = { id, order, clientName, price, status: "em preparação" }
+users[index] = updatedOrder
+    return res.json(updatedOrder)
       
 })
 
-app.delete('/users/:id', checkUserId, ( req, res) => {
-    const index = req.userIndex
+app.delete('/order/:id', checkUserId, ( req, res) => {
+    const index = req.orderIndex
 
     users.splice(index,1)
 
     
-    return res.status(204).json()
+    return res.status(204).json({ message: "Removido" })
       
 })
 
 
 app.listen(port, () => {
-    console.log('🚀Server Started on port ${port}')
+    console.log('🍔 Server Started on port ${port}')
 
     console.log('message')
 })
