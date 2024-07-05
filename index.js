@@ -80,24 +80,19 @@ app.get('/order/:id', checkUserId, (req, res) => {
 })
 
 app.patch('/order/:id', checkUserId, (req, res) => {
-    const { order, clientName, price } = req.body
+   
     const index = req.userIndex
   
-    const currentOrder = users[index]
+    
   
-    const updatedOrder = {
-      ...currentOrder,
-      order: order !== undefined ? order : currentOrder.order,
-      clientName: clientName !== undefined ? clientName : currentOrder.clientName,
-      price: price !== undefined ? price : currentOrder.price,
-    }
+   
   
-    users[index] = updatedOrder
-    return res.json(updatedOrder)
-  })
+    users[index].status = "Pronto"
+    return res.json(
+        users[index]
+    );
+});
   
-
-
 
 app.listen(port, () => {
     console.log('🍔 Server Started on port ${port}')
